@@ -21,12 +21,16 @@ class MyApp extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: BottomAppBar(
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Icon(Icons.phone), Icon(Icons.message), Icon(Icons.contact_page)
-            ],
+          child: SizedBox(
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(Icons.phone),
+                Icon(Icons.message),
+                Icon(Icons.contact_page)
+              ],
+            ),
           ),
 
 
