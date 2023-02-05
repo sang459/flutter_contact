@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar( title: Text('피드'), ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('내용')
+            Image(image: AssetImage('sample.jpg'),),
+            Text('이것은당신의기타 이다')
           ],
         ),
         bottomNavigationBar: BottomAppBar(
