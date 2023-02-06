@@ -12,9 +12,70 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar( title: Text('피드'), ),
+        appBar: AppBar(
+          actions: [Icon(Icons.add)],
+          leading: Icon(Icons.ac_unit_sharp),
+          title: Text(
+              '피드',
+            style: TextStyle(fontWeight: FontWeight.w800)
 
-        body: Container(),
+          ),
+        ),
+
+        body: Align(
+          alignment: Alignment.topRight,
+          child: Column(
+            children: [
+
+              SizedBox(
+                child: Text('안녕안영',
+                  style: TextStyle(
+                    color: Color(0xffc68181),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                child: ElevatedButton(
+                  child: Text('dd') ,
+                  onPressed: (){},
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.red)
+                  ),
+                )
+              ),
+
+              Container(
+                width: 50, height: 50,
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blue),
+                  color: Colors.indigoAccent
+                ),
+                child: Text(
+                    style: TextStyle(color: Colors.white),
+                    'ddd'),
+              ),
+
+              Container(
+                width: 150, height: 50,
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    color: Colors.indigoAccent
+                ),
+                child: Text(
+                    style: TextStyle(color: Colors.white),
+                    'ddd'),
+              ),
+            ],
+          ),
+        ),
+
 
 
         bottomNavigationBar: BottomAppBar(
@@ -23,9 +84,9 @@ class MyApp extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Icon(Icons.phone),
-                Icon(Icons.message),
-                Icon(Icons.contact_page)
+                Icon(Icons.phone, size: 30),
+                Icon(Icons.message, size: 30),
+                Icon(Icons.contact_page, size: 30)
               ],
             ),
           ),
