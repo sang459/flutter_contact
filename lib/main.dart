@@ -4,10 +4,19 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+
+
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   var a = 0;
+  var name = ['거북이', '두루미', '동방삭'];
+  var LikeCount = [0,0,0];
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +26,9 @@ class MyApp extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Text(a.toString()),
           onPressed: (){
-            a++;
+            setState(() {
+              a++;
+            });
             print(a);
           },
         ),
@@ -25,7 +36,39 @@ class MyApp extends StatelessWidget {
         body: ListView.builder(
           itemCount: 3,
           itemBuilder: (context, i){
-            return hawawa;
+            return Row(
+              children: [
+                Flexible(
+                    flex: 7,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                          child: Text(LikeCount[i].toString()),
+                        ),
+                        Icon(Icons.contact_page_rounded),
+                        Text(name[i]),
+                      ],
+                    )
+                ),
+                Container(
+                  alignment: Alignment.topRight,
+                  child: Flexible(
+                    flex: 3,
+                    child: ElevatedButton(
+                      child: Text('조아요'),
+                      onPressed: (){
+                        setState(() {
+                          LikeCount[i] ++;
+                        });
+                      },
+                    )
+                  ),
+                )
+              ],
+            );
+
+
           },
         ),
         bottomNavigationBar: BottomBarCus(),
@@ -42,8 +85,6 @@ var hawawa = Padding(
     children: [
 
       Icon(Icons.contact_page_rounded),
-
-      Text('홍길동'),
 
     ],
 
