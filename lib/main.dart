@@ -19,13 +19,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  var apple = 3;
-  var pear = 'pear';
-  var total = 3;
+  var contactList = ['김병식'];
 
-  addOne(){
-    setState(() {
-      total++;
+  addOne(text) {
+    setState(() { ///이거 까먹지 마라!!!!!!!!!!!!
+      contactList.add(text);
     });
   }
 
@@ -39,24 +37,54 @@ class _MyAppState extends State<MyApp> {
             showDialog(
                 context: context,
                 builder: (context){
-                  return DialogUI(state: apple, addOne: addOne);
+                  return DialogUI(aO : addOne);
                 },
             );
             },
         ),
-        appBar: AppBar( title: Text(total.toString()) ),
-        body: Container()
-      );
+        appBar: AppBar( title: Text('')),
+        body: ListView.builder(
+          itemCount: contactList.length,
+          itemBuilder: (context, i) {
+            return Row(
+              children: [
+                Icon(Icons.contact_page_outlined),
+                Text(contactList[i])
+              ],
+            );
+          },
+
+        )
+
+
+        // Listview 만들었던거 참고용
+      // ListView.builder(
+      //           itemCount: 3,
+      //           itemBuilder: (context, i){
+      //             return Row(
+      //               children: [
+      //                 Flexible(
+      //                     flex: 7,
+      //                     child: Row(
+      //                       children: [
+      //                         Padding(
+      //                           padding: const EdgeInsets.fromLTRB(5,0,5,0),
+      //                           child: Text(LikeCount[i].toString()),
+      //                         ),
+      //                         Icon(Icons.contact_page_rounded),
+      //                         Text(name[i]),
+      //                       ],
+      //                     )
+    );
 
 
   }
 }
 
 class DialogUI extends StatelessWidget {
-  DialogUI({Key? key, this.state, this.addOne}) : super(key: key);
-  final state;
-  final addOne;
-  var inputData = [];
+  DialogUI({Key? key, this.aO}) : super(key: key);
+  var aO;
+  var inputData = '';
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +96,7 @@ class DialogUI extends StatelessWidget {
               Flexible(
                 child: Padding(
                   padding: EdgeInsets.all(15),
-                  child: Text('Contact',
+                  child: Text('연락처 추가',
                     style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 15
@@ -79,7 +107,9 @@ class DialogUI extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(20,4,20,4),
-                  child: TextField( onChanged: (text){ inputData.add(text); })
+                  child: TextField( onChanged: (text){
+                    inputData = text;
+                  })
                 ),
               ),
               Flexible(
@@ -89,8 +119,18 @@ class DialogUI extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TextButton(onPressed: (){ addOne(); print(state); }, child: Text(state.toString())),
-                          TextButton(onPressed: (){ Navigator.pop(context); }, child: Text('취소')),
+                          TextButton(
+                              onPressed: (){
+                            if ( inputData != '' ) { aO(inputData); }
+                            inputData = '';
+                            Navigator.pop(context);
+                            },
+                              child: Text('확인')),
+                          TextButton(
+                              onPressed: (){
+                                Navigator.pop(context); 
+                                },
+                              child: Text('취소')),
                         ],
                       )
                   )
