@@ -21,6 +21,13 @@ class _MyAppState extends State<MyApp> {
 
   var apple = 3;
   var pear = 'pear';
+  var total = 3;
+
+  addOne(){
+    setState(() {
+      total++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +39,12 @@ class _MyAppState extends State<MyApp> {
             showDialog(
                 context: context,
                 builder: (context){
-                  return DialogUI(state: apple, pear2: pear);
+                  return DialogUI(state: apple, addOne: addOne);
                 },
             );
             },
         ),
-        appBar: AppBar(),
+        appBar: AppBar( title: Text(total.toString()) ),
         body: Container()
       );
 
@@ -46,9 +53,10 @@ class _MyAppState extends State<MyApp> {
 }
 
 class DialogUI extends StatelessWidget {
-  const DialogUI({Key? key, this.state, this.pear2}) : super(key: key);
+  DialogUI({Key? key, this.state, this.addOne}) : super(key: key);
   final state;
-  final pear2;
+  final addOne;
+  var inputData = [];
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +79,7 @@ class DialogUI extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(20,4,20,4),
-                  child: TextField(),
+                  child: TextField( onChanged: (text){ inputData.add(text); })
                 ),
               ),
               Flexible(
@@ -81,8 +89,8 @@ class DialogUI extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TextButton(onPressed: (){}, child: Text(state.toString())),
-                          TextButton(onPressed: (){  }, child: Text(pear2)),
+                          TextButton(onPressed: (){ addOne(); print(state); }, child: Text(state.toString())),
+                          TextButton(onPressed: (){ Navigator.pop(context); }, child: Text('취소')),
                         ],
                       )
                   )
