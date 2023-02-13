@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+      MaterialApp(
+          home: MyApp()
+      )
+  );
 }
 
 
@@ -14,102 +18,79 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var a = 0;
-  var name = ['거북이', '두루미', '동방삭'];
-  var LikeCount = [0,0,0];
+
+  var apple = 3;
+  var pear = 'pear';
 
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      home: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Text(a.toString()),
+    return Scaffold(
+        floatingActionButton:
+        FloatingActionButton(
           onPressed: (){
-            setState(() {
-              a++;
-            });
-            print(a);
-          },
+            showDialog(
+                context: context,
+                builder: (context){
+                  return DialogUI(state: apple, pear2: pear);
+                },
+            );
+            },
         ),
         appBar: AppBar(),
-        body: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, i){
-            return Row(
-              children: [
-                Flexible(
-                    flex: 7,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                          child: Text(LikeCount[i].toString()),
-                        ),
-                        Icon(Icons.contact_page_rounded),
-                        Text(name[i]),
-                      ],
-                    )
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Flexible(
-                    flex: 3,
-                    child: ElevatedButton(
-                      child: Text('조아요'),
-                      onPressed: (){
-                        setState(() {
-                          LikeCount[i] ++;
-                        });
-                      },
-                    )
-                  ),
-                )
-              ],
-            );
+        body: Container()
+      );
 
-
-          },
-        ),
-        bottomNavigationBar: BottomBarCus(),
-      )
-    );
 
   }
 }
 
-var hawawa = Padding(
-  padding: const EdgeInsets.all(8.0),
-  child:   Row(
-
-    children: [
-
-      Icon(Icons.contact_page_rounded),
-
-    ],
-
-  ),
-);
-
-class BottomBarCus extends StatelessWidget {
-  const BottomBarCus({Key? key}) : super(key: key);
+class DialogUI extends StatelessWidget {
+  const DialogUI({Key? key, this.state, this.pear2}) : super(key: key);
+  final state;
+  final pear2;
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      child: SizedBox(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Icon(Icons.phone),
-            Icon(Icons.message),
-            Icon(Icons.contact_page)
-          ],
-        ),
-      ),
+    return Dialog(
+        child: SizedBox(
+          height: 150, width: 300,
+          child: Column(
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text('Contact',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15
+                    ),
+                  ),
+                )
+                ,),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(20,4,20,4),
+                  child: TextField(),
+                ),
+              ),
+              Flexible(
+                  child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(onPressed: (){}, child: Text(state.toString())),
+                          TextButton(onPressed: (){  }, child: Text(pear2)),
+                        ],
+                      )
+                  )
+              )
 
-
+            ],
+          ),
+        )
     );
   }
 }
